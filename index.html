@@ -230,6 +230,35 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
 .fdot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 6px var(--lime);animation:blink 2s ease-in-out infinite}
 @media(max-width:1050px){.g2{grid-template-columns:1fr}.kpi-strip{grid-template-columns:1fr 1fr}.kpi:nth-child(1){border-radius:16px 0 0 0}.kpi:nth-child(2){border-radius:0 16px 0 0}.kpi:nth-child(3){border-radius:0 0 0 16px}.kpi:nth-child(4){border-radius:0 0 16px 0}}
 @media(max-width:700px){.g3{grid-template-columns:1fr}.kpi-strip{grid-template-columns:1fr;gap:0;border-radius:16px;overflow:hidden}.kpi{border-radius:0!important}.kpi:first-child{border-radius:16px 16px 0 0!important}.kpi:last-child{border-radius:0 0 16px 16px!important}.g2r{grid-template-columns:1fr}#toasts{left:10px;right:10px;width:auto}.shell{padding:0 12px 80px}.nav-tabs{width:100%}.tab{flex:1;text-align:center;padding:8px 4px;font-size:.6rem}}
+
+/* ── RECURRING TOGGLE SWITCH ── */
+.toggle-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;margin-bottom:12px;
+  cursor:pointer;user-select:none;
+}
+.toggle-label{
+  font-family:var(--fm);font-size:.72rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--mist);
+  transition:color .2s;
+}
+.toggle-row.active .toggle-label{ color:var(--cyan); }
+.toggle-track{
+  width:46px;height:26px;border-radius:99px;
+  background:var(--ghost);
+  position:relative;flex-shrink:0;
+  transition:background .25s cubic-bezier(.4,0,.2,1);
+  border:1px solid rgba(255,255,255,.08);
+}
+.toggle-row.active .toggle-track{ background:var(--cyan); }
+.toggle-thumb{
+  position:absolute;top:3px;left:3px;
+  width:18px;height:18px;border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.35);
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
+}
+.toggle-row.active .toggle-thumb{ transform:translateX(20px); }
 </style>
 </head>
 <body>
@@ -414,12 +443,13 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
             </optgroup>
           </select>
         </div>
-        <div class="fg">
-          <div class="checkbox-row">
-            <input type="checkbox" id="exp-rec"/>
-            <span onclick="document.getElementById('exp-rec').click()">&#x267B;&#xFE0F; Gasto recorrente (sugerir pr&oacute;ximo m&ecirc;s)</span>
+        <div class="toggle-row" id="rec-toggle" onclick="toggleRec()">
+          <span class="toggle-label">GASTO RECORRENTE</span>
+          <div class="toggle-track">
+            <div class="toggle-thumb"></div>
           </div>
         </div>
+        <input type="hidden" id="exp-rec" value="0"/>
         <button class="btn btn-lime btn-full" onclick="addExpense()">+ Adicionar Lan&ccedil;amento</button>
         <div class="manage-row">
           <button class="btn btn-glass btn-sm" onclick="clearTransactions()">&#x21BA; Limpar m&ecirc;s</button>
@@ -659,7 +689,7 @@ function addExpense(){
   var val  = parseFloat(document.getElementById('exp-val').value);
   var date = document.getElementById('exp-date').value;
   var cat  = document.getElementById('exp-cat').value;
-  var rec  = document.getElementById('exp-rec').checked;
+  var rec  = document.getElementById('exp-rec').value === '1';
   if(!desc)       return toast('warn','Campo vazio','Preencha a descri&#231;&#227;o.');
   if(!val||val<=0)return toast('warn','Valor inv&#225;lido','Informe um valor maior que zero.');
   if(!date)       return toast('warn','Data','Selecione uma data.');
@@ -684,7 +714,7 @@ function addExpense(){
   document.getElementById('exp-desc').value='';
   document.getElementById('exp-val').value='';
   document.getElementById('exp-cat').value='';
-  document.getElementById('exp-rec').checked=false;
+  document.getElementById('exp-rec').value='0'; var rt=document.getElementById('rec-toggle'); if(rt) rt.classList.remove('active');
   document.getElementById('exp-date').value=new Date().toISOString().split('T')[0];
 
   buildMonthFilter(); render(); renderPatrimony(); renderRelatorios(); checkLowBalance(txMK);
@@ -1539,6 +1569,15 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function el(id){return document.getElementById(id)}
 function mkLabel(mk){var p=mk.split('-');return new Date(p[0],p[1]-1,1).toLocaleDateString('pt-BR',{month:'short',year:'2-digit'})}
 function destroyChart(k){if(charts[k]){charts[k].destroy();delete charts[k]}}
+
+
+function toggleRec(){
+  var inp = document.getElementById('exp-rec');
+  var row = document.getElementById('rec-toggle');
+  var isOn = inp.value === '1';
+  inp.value = isOn ? '0' : '1';
+  row.classList.toggle('active', !isOn);
+}
 
 document.addEventListener('DOMContentLoaded',init);
 </script>
