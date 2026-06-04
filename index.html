@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Borel Bank — Controle Financeiro</title>
+<title>BOREL BANK — Controle Financeiro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -46,15 +46,26 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 .kpi:first-child{border-radius:16px 0 0 16px}
 .kpi:last-child{border-radius:0 16px 16px 0}
 .kpi-accent{position:absolute;top:0;left:0;right:0;height:2px}
-.kpi-lbl{font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:12px}
+.kpi-lbl{font-family:var(--fm);font-size:.70rem;letter-spacing:.16em;text-transform:uppercase;color:#DCDCDC;margin-bottom:12px}
 .kpi-val{font-family:var(--fd);font-size:clamp(1.4rem,2.2vw,2rem);letter-spacing:.01em;line-height:1;margin-bottom:6px}
 .kpi-sub{font-size:.72rem;color:var(--mist)}
-.forecast-bar{margin-top:16px;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid var(--rim);border-radius:14px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.forecast-ico{font-size:1.4rem}
-.forecast-text{flex:1;min-width:160px}
-.forecast-title{font-family:var(--fm);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);margin-bottom:4px}
-.forecast-val{font-family:var(--fd);font-size:1.4rem;letter-spacing:.02em;line-height:1}
-.forecast-detail{font-size:.73rem;color:var(--mist);margin-top:4px}
+/* ── INSIGHTS PANEL ── */
+.insights-panel{margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.insight-card{padding:16px 18px;border-radius:14px;border:1px solid transparent;display:flex;align-items:flex-start;gap:12px;animation:fadeUp .35s var(--ease) both;transition:border-color .2s,transform .2s var(--ease)}
+.insight-card:hover{transform:translateY(-2px)}
+.insight-ok   {background:rgba(184,255,87,.06); border-color:rgba(184,255,87,.15)}
+.insight-warn {background:rgba(255,184,48,.06); border-color:rgba(255,184,48,.16)}
+.insight-crit {background:rgba(255,95,109,.06); border-color:rgba(255,95,109,.18)}
+.insight-info {background:rgba(61,245,193,.05); border-color:rgba(61,245,193,.14)}
+.insight-idle {background:rgba(255,255,255,.03);border-color:var(--rim)}
+.insight-ico{font-size:1.3rem;flex-shrink:0;margin-top:1px}
+.insight-body{}
+.insight-label{font-family:var(--fm);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);margin-bottom:4px}
+.insight-title{font-size:.9rem;font-weight:600;line-height:1.3;margin-bottom:3px}
+.insight-sub{font-size:.76rem;color:var(--mist);line-height:1.4}
+.insight-val{font-family:var(--fd);font-size:1.3rem;letter-spacing:.02em;line-height:1;margin-bottom:2px}
+@media(max-width:900px){.insights-panel{grid-template-columns:1fr 1fr}}
+@media(max-width:550px){.insights-panel{grid-template-columns:1fr}}
 .score-ring-wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .score-ring{width:84px;height:84px;position:relative;flex-shrink:0}
 .score-ring svg{transform:rotate(-90deg)}
@@ -254,14 +265,9 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
       <div class="kpi-sub">Total aportado</div>
     </div>
   </div>
-  <div class="forecast-bar reveal d3">
-    <div class="forecast-ico">&#x1F6CE;</div>
-    <div class="forecast-text">
-      <div class="forecast-title">Previs&atilde;o de Fim do M&ecirc;s</div>
-      <div class="forecast-val" id="forecast-val">&mdash;</div>
-      <div class="forecast-detail" id="forecast-detail">Adicione lan&ccedil;amentos para calcular</div>
-    </div>
-    <div class="score-ring-wrap">
+  <!-- SCORE RING compacto -->
+  <div class="forecast-bar reveal d3" style="padding:14px 20px">
+    <div class="score-ring-wrap" style="width:100%">
       <div class="score-ring">
         <svg viewBox="0 0 84 84" width="84" height="84">
           <circle class="ring-bg" cx="42" cy="42" r="34"/>
@@ -272,9 +278,14 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
           <div class="score-denom">/100</div>
         </div>
       </div>
-      <div class="score-items" id="score-items" style="max-width:180px"></div>
+      <div style="flex:1">
+        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">Borel Bank</div>
+        <div id="score-items" style="display:flex;flex-direction:column;gap:5px"></div>
+      </div>
     </div>
   </div>
+  <!-- INSIGHTS PANEL -->
+  <div class="insights-panel reveal d3" id="insights-panel"></div>
   <div class="g2" style="margin-top:16px">
     <div style="display:flex;flex-direction:column;gap:16px">
       <div class="card reveal d3">
@@ -282,7 +293,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
         <div id="rule-bars"><div class="empty"><div class="empty-g">&#x25D1;</div><p>Informe sua renda</p></div></div>
       </div>
       <div class="card reveal d4">
-        <div class="sec-lbl">FinTrack Score</div>
+        <div class="sec-lbl">Score</div>
         <div style="text-align:center;padding:6px 0">
           <div id="score-num2" style="font-family:var(--fd);font-size:3rem;letter-spacing:.02em">&mdash;</div>
           <div style="font-family:var(--fm);font-size:.6rem;color:var(--ghost);margin-bottom:12px">PONTUA&Ccedil;&Atilde;O FINANCEIRA</div>
@@ -349,20 +360,20 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
           <select id="exp-cat">
             <option value="">Selecione...</option>
             <optgroup label="Necessidades (50%)">
-              <option value="Alimentacao">&#x1F354; Alimenta&ccedil;&atilde;o / Mercado</option>
-              <option value="Moradia">&#x1F3E0; Moradia / Aluguel</option>
-              <option value="Energia">&#x1F4A1; Energia / &Aacute;gua</option>
-              <option value="Saude">&#x1F3E5; Sa&uacute;de / Plano</option>
-              <option value="Educacao">&#x1F4DA; Educa&ccedil;&atilde;o</option>
-              <option value="Cartao">&#x1F4B3; Cart&atilde;o de Cr&eacute;dito</option>
-              <option value="Transporte">&#x1F697; Transporte</option>
+              <option value="Alimentacao">Alimenta&ccedil;&atilde;o / Mercado</option>
+              <option value="Moradia">Moradia / Aluguel</option>
+              
+              <option value="Saude">Sa&uacute;de / Plano</option>
+              <option value="Educacao">Educa&ccedil;&atilde;o</option>
+              <option value="Cartao">Cart&atilde;o de Cr&eacute;dito</option>
+              <option value="Transporte">Transporte</option>
             </optgroup>
             <optgroup label="Desejos (30%)">
-              <option value="Lazer">&#x1F3AF; Lazer / Esporte</option>
-              <option value="Restaurante">&#x1F37D; Restaurante / Delivery</option>
-              <option value="Assinaturas">&#x1F4FA; Assinaturas</option>
-              <option value="Vestuario">&#x1F455; Vestu&aacute;rio</option>
-              <option value="Outros">&#x2728; Outros Desejos</option>
+              <option value="Lazer">Lazer / Esporte</option>
+              <option value="Restaurante"> Restaurante / Delivery</option>
+              <option value="Assinaturas"> Assinaturas</option>
+              <option value="Vestuario"> Vestu&aacute;rio</option>
+              <option value="Outros">Outros Desejos</option>
             </optgroup>
             <optgroup label="Futuro (20%)">
               <option value="Investimentos">&#x1F4C8; Investimentos</option>
@@ -488,7 +499,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
 </div>
 
 <footer>
-  <p>BOREL BANK &copy; 2026 &mdash; DADOS LOCAIS &middot; LOCALSTORAGE &middot; SEM SERVIDOR</p>
+  <p>BOREL BANK &copy; 2026 &mdash; DADOS LOCAIS &middot;  SEM SERVIDOR</p>
   <div class="fdot"></div>
 </footer>
 </div>
@@ -525,13 +536,13 @@ function getMK(){ var s=document.getElementById('month-filter'); return s?s.valu
 var CAT = {
   'Alimentacao':   {e:'',c:'#3df5c1',bg:'rgba(61,245,193,.12)',  g:'N'},
   'Moradia':       {e:'',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'N'},
-  'Energia':       {e:'',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'N'},
+  
   'Saude':         {e:'',c:'#a78bfa',bg:'rgba(167,139,250,.12)',  g:'N'},
   'Educacao':      {e:'',c:'#60a5fa',bg:'rgba(96,165,250,.12)',   g:'N'},
   'Cartao':        {e:'',c:'#ff7eb3',bg:'rgba(255,126,179,.12)',  g:'N'},
   'Transporte':    {e:'',c:'#ffb830',bg:'rgba(255,184,48,.12)',   g:'N'},
   'Lazer':         {e:'',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'D'},
-  'Restaurante':   {e:';',c:'#f97316',bg:'rgba(249,115,22,.12)',   g:'D'},
+  'Restaurante':   {e:'',c:'#f97316',bg:'rgba(249,115,22,.12)',   g:'D'},
   'Assinaturas':   {e:'',c:'#e879f9',bg:'rgba(232,121,249,.12)',  g:'D'},
   'Vestuario':     {e:'',c:'#fb7185',bg:'rgba(251,113,133,.12)',  g:'D'},
   'Outros':        {e:'', c:'#f472b6',bg:'rgba(244,114,182,.12)',  g:'D'},
@@ -540,7 +551,7 @@ var CAT = {
 };
 
 var RULE_GROUPS = [
-  {key:'N',label:'Necessidades',pct:.50,color:'#3df5c1',cats:['Alimentacao','Moradia','Energia','Saude','Educacao','Cartao','Transporte'],hint:'50% — moradia, alimentacao, transporte, saude'},
+  {key:'N',label:'Necessidades',pct:.50,color:'#3df5c1',cats:['Alimentacao','Moradia','Saude','Educacao','Cartao','Transporte'],hint:'50% — moradia, alimentacao, transporte, saude'},
   {key:'D',label:'Desejos',     pct:.30,color:'#ffb830',cats:['Lazer','Restaurante','Assinaturas','Vestuario','Outros'],             hint:'30% — lazer, esporte, assinaturas'},
   {key:'F',label:'Futuro',      pct:.20,color:'#b8ff57',cats:['Investimentos','Reserva'],                                            hint:'20% — investimentos, reserva de emergencia'}
 ];
@@ -742,8 +753,8 @@ function render(){
   el('kv-bal-sub').textContent=inc>0?(Math.round(bal/inc*100)+'% da renda'):'Renda — Gastos';
   el('inc-display').textContent=inc>0?'R$ '+fmt(inc):'R$ —';
 
-  renderForecast(txs,inc,mk);
   renderScore(txs,inc);
+  renderInsights(txs,inc,mk);
   renderRuleBars(txs,inc);
   renderPieChart(txs);
   renderTop(txs);
@@ -752,25 +763,132 @@ function render(){
 }
 
 /* ================================================
-   FORECAST
+   INSIGHTS ENGINE
+   Substitui a previsão de fim de mês por sugestões
+   contextuais baseadas nos dados reais do usuário.
 ================================================ */
-function renderForecast(txs,income,mk){
-  var parts=mk.split('-'), y=parseInt(parts[0]), m=parseInt(parts[1]);
-  var today=new Date(), isCur=(today.getFullYear()===y&&today.getMonth()+1===m);
-  if(!txs.length||income<=0){el('forecast-val').textContent='—';el('forecast-detail').textContent='Adicione lançamentos para calcular';return}
-  if(!isCur){
-    var b=income-txs.reduce(function(s,t){return s+t.val},0);
-    el('forecast-val').textContent='R$ '+fmt(b);
-    el('forecast-val').style.color=b>=0?'var(--lime)':'var(--coral)';
-    el('forecast-detail').textContent='Mês encerrado — saldo final';
+function renderInsights(txs, income, mk) {
+  var cont = el('insights-panel');
+  if (!cont) return;
+
+  /* Sem renda: exibe apenas dica de configuração */
+  if (!income) {
+    cont.innerHTML = insightCard('idle','&#x1F4B0;','Configure sua renda',
+      'Informe seu sal&aacute;rio na aba Lan&ccedil;amentos para ativar as sugest&otilde;es personalizadas.','');
     return;
   }
-  var day=today.getDate(), dim=new Date(y,m,0).getDate();
-  var tot=txs.reduce(function(s,t){return s+t.val},0);
-  var avg=tot/day, proj=tot+avg*(dim-day), pb=income-proj;
-  el('forecast-val').textContent='R$ '+fmt(Math.abs(pb));
-  el('forecast-val').style.color=pb>=0?'var(--lime)':'var(--coral)';
-  el('forecast-detail').textContent='Ritmo R$ '+fmt(avg)+'/dia · Projeção R$ '+fmt(proj)+' · Dia '+day+'/'+dim;
+
+  var tot  = txs.reduce(function(s,t){return s+t.val},0);
+  var bal  = income - tot;
+  var inv  = txs.filter(function(t){return t.cat==='Investimentos'||t.cat==='Reserva'}).reduce(function(s,t){return s+t.val},0);
+  var des  = txs.filter(function(t){return RULE_GROUPS[1].cats.indexOf(t.cat)>=0}).reduce(function(s,t){return s+t.val},0);
+  var nec  = txs.filter(function(t){return RULE_GROUPS[0].cats.indexOf(t.cat)>=0}).reduce(function(s,t){return s+t.val},0);
+  var cc   = txs.filter(function(t){return t.cat==='Cartao'}).reduce(function(s,t){return s+t.val},0);
+  var invLim= income * 0.20;
+  var desLim= income * 0.30;
+  var necLim= income * 0.50;
+
+  var cards = [];
+
+  /* ── 1. SALDO LIVRE ──────────────────────────
+     Sempre presente. Cor muda conforme saúde.  */
+  var balPct = income > 0 ? (bal / income) * 100 : 0;
+  var balType = bal < 0 ? 'crit' : balPct < 10 ? 'warn' : balPct < 25 ? 'info' : 'ok';
+  var balIco  = bal < 0 ? '&#x1F6A8;' : balPct < 10 ? '&#x26A0;&#xFE0F;' : '&#x2705;';
+  var balMsg  = bal < 0
+    ? 'Voc&ecirc; gastou R$ '+fmt(Math.abs(bal))+' a mais do que recebeu. Revise os gastos urgentemente.'
+    : balPct < 10
+      ? 'Saldo muito apertado. Evite qualquer gasto n&atilde;o essencial at&eacute; o pr&oacute;ximo m&ecirc;s.'
+      : balPct < 25
+        ? 'Saldo moderado. Guarde o restante ou direcione para investimentos.'
+        : 'Saldo saud&aacute;vel! Considere investir R$ '+fmt(bal * 0.5)+' do que sobrou.';
+  cards.push(insightCard(balType, balIco, 'Saldo Livre',
+    '<span class="insight-val" style="color:'+(bal<0?'var(--coral)':balPct<25?'var(--amber)':'var(--lime)')+'">R$ '+fmt(Math.abs(bal))+'</span>', balMsg));
+
+  /* ── 2. INVESTIMENTOS ────────────────────────
+     Se não investiu: incentiva. Se investiu: parabeniza com %  */
+  if (!inv) {
+    var sugestInv = fmt(income * 0.10);
+    cards.push(insightCard('warn','&#x1F4C8;','Investimento Zerado',
+      'Voc&ecirc; ainda n&atilde;o registrou nenhum investimento neste m&ecirc;s.',
+      'Comece com pelo menos 10% da renda (R$ '+sugestInv+'). Pequenos aportes constantes fazem grande diferen&ccedil;a.'));
+  } else {
+    var invPct = (inv / income) * 100;
+    var invType = invPct >= 20 ? 'ok' : invPct >= 10 ? 'info' : 'warn';
+    cards.push(insightCard(invType,'&#x1F3AF;','Investimentos',
+      '<span class="insight-val" style="color:var(--lime)">R$ '+fmt(inv)+'</span>',
+      invPct >= 20
+        ? 'Excelente! Voc&ecirc; atingiu a meta de 20% da renda investidos. Continue assim!'
+        : invPct >= 10
+          ? 'Bom come&ccedil;o! Voc&ecirc; est&aacute; investindo '+invPct.toFixed(0)+'%. A meta recomendada &eacute; 20% (R$ '+fmt(invLim)+').'
+          : 'Voc&ecirc; investiu apenas '+invPct.toFixed(0)+'% da renda. Tente chegar a R$ '+fmt(invLim-inv)+' a mais este m&ecirc;s.'));
+  }
+
+  /* ── 3. DESEJOS ──────────────────────────────*/
+  if (des > desLim) {
+    cards.push(insightCard('crit','&#x1F6D1;','Desejos Estourados',
+      '<span class="insight-val" style="color:var(--coral)">+R$ '+fmt(des - desLim)+'</span>',
+      'Voc&ecirc; gastou R$ '+fmt(des)+' em lazer/desejos, '+((des/income)*100).toFixed(0)+'% da renda. O limite recomendado &eacute; R$ '+fmt(desLim)+'. Reduza assinaturas, delivery e lazer no pr&oacute;ximo m&ecirc;s.'));
+  } else if (des > desLim * 0.80) {
+    cards.push(insightCard('warn','&#x26A0;&#xFE0F;','Desejos Próximos do Limite',
+      '<span class="insight-val" style="color:var(--amber)">R$ '+fmt(desLim - des)+' restam</span>',
+      'Voc&ecirc; j&aacute; usou '+((des/desLim)*100).toFixed(0)+'% do or&ccedil;amento de lazer/desejos. Use com cuidado at&eacute; o fim do m&ecirc;s.'));
+  } else if (des < desLim * 0.5 && bal > income * 0.3) {
+    cards.push(insightCard('ok','&#x1F389;','Desejos sob Controle',
+      '<span class="insight-val" style="color:var(--cyan)">R$ '+fmt(desLim - des)+' livres</span>',
+      'Voc&ecirc; tem R$ '+fmt(desLim - des)+' dispon&iacute;veis para lazer/desejos dentro da regra 30%. Aproveite sem culpa!'));
+  }
+
+  /* ── 4. NECESSIDADES ─────────────────────────*/
+  if (nec > necLim) {
+    cards.push(insightCard('crit','&#x1F4CB;','Necessidades Estouradas',
+      '<span class="insight-val" style="color:var(--coral)">+R$ '+fmt(nec - necLim)+'</span>',
+      'Gastos essenciais (moradia, alimenta&ccedil;&atilde;o, etc.) ultrapassaram 50% da renda. Avalie se h&aacute; custos fixos que podem ser renegociados.'));
+  }
+
+  /* ── 5. CARTÃO DE CRÉDITO ───────────────────*/
+  if (cc > income * 0.30) {
+    cards.push(insightCard('crit','&#x1F4B3;','Cartão Alto',
+      '<span class="insight-val" style="color:var(--coral)">R$ '+fmt(cc)+'</span>',
+      'Fatura do cart&atilde;o representa '+((cc/income)*100).toFixed(0)+'% da renda. Parcelas altas podem comprometer meses futuros. Considere quitá-lo com o saldo dispon&iacute;vel.'));
+  } else if (cc > income * 0.20) {
+    cards.push(insightCard('warn','&#x1F4B3;','Cartão Elevado',
+      '<span class="insight-val" style="color:var(--amber)">R$ '+fmt(cc)+'</span>',
+      'Cart&atilde;o j&aacute; representa '+((cc/income)*100).toFixed(0)+'% da renda. O limite recomendado &eacute; 20%. Evite novas compras parceladas.'));
+  }
+
+  /* ── 6. RESERVA DE EMERGÊNCIA ───────────────*/
+  var hasReserva = txs.some(function(t){return t.cat==='Reserva'});
+  var reservaTotal = txs.filter(function(t){return t.cat==='Reserva'}).reduce(function(s,t){return s+t.val},0);
+  if (!hasReserva && bal > income * 0.15) {
+    cards.push(insightCard('info','&#x1F6E1;','Construa sua Reserva',
+      'Voc&ecirc; tem R$ '+fmt(bal)+' de saldo livre.',
+      'Direcione ao menos R$ '+fmt(Math.min(bal*0.5, income*0.10))+' para uma Reserva de Emerg&ecirc;ncia. Meta: 6&times; seus gastos mensais.'));
+  }
+
+  /* ── 7. PARABÉNS (mês zero gastos) ─────────*/
+  if (!txs.length) {
+    cont.innerHTML = insightCard('idle','&#x1F4DD;','Nenhum Lançamento',
+      'Comece registrando seus gastos do m&ecirc;s na aba Lan&ccedil;amentos.',
+      'Quanto mais voc&ecirc; registrar, mais precisas ser&atilde;o as sugest&otilde;es.');
+    return;
+  }
+
+  /* Limita a 3 cards mais relevantes (os mais críticos primeiro) */
+  var priority = ['crit','warn','info','ok','idle'];
+  cards.sort(function(a,b){ return priority.indexOf(a._type) - priority.indexOf(b._type); });
+  cont.innerHTML = cards.slice(0,3).map(function(c){return c.html}).join('');
+}
+
+function insightCard(type, ico, label, valHtml, sub) {
+  var html = '<div class="insight-card insight-'+type+'">'
+    +'<div class="insight-ico">'+ico+'</div>'
+    +'<div class="insight-body">'
+    +'<div class="insight-label">'+label+'</div>'
+    +(valHtml ? '<div>'+valHtml+'</div>' : '')
+    +(sub ? '<div class="insight-sub">'+sub+'</div>' : '')
+    +'</div></div>';
+  return { _type: type, html: html };
 }
 
 /* ================================================
@@ -1139,7 +1257,7 @@ function inferCat(desc){
   if(/academia|gym|crossfit/.test(d)) return 'Lazer';
   if(/investimento|tesouro|cdb|fundo|acoes|btc/.test(d)) return 'Investimentos';
   if(/aluguel|condominio|iptu/.test(d)) return 'Moradia';
-  if(/energia|luz|agua|internet|telefone/.test(d)) return 'Energia';
+  
   return 'Outros';
 }
 
