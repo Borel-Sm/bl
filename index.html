@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>BOREL BANK — Controle Financeiro</title>
+<title>FINTRACK — Controle Financeiro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -46,7 +46,7 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 .kpi:first-child{border-radius:16px 0 0 16px}
 .kpi:last-child{border-radius:0 16px 16px 0}
 .kpi-accent{position:absolute;top:0;left:0;right:0;height:2px}
-.kpi-lbl{font-family:var(--fm);font-size:.70rem;letter-spacing:.16em;text-transform:uppercase;color:#DCDCDC;margin-bottom:12px}
+.kpi-lbl{font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:12px}
 .kpi-val{font-family:var(--fd);font-size:clamp(1.4rem,2.2vw,2rem);letter-spacing:.01em;line-height:1;margin-bottom:6px}
 .kpi-sub{font-size:.72rem;color:var(--mist)}
 /* ── INSIGHTS PANEL ── */
@@ -67,6 +67,32 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 @media(max-width:900px){.insights-panel{grid-template-columns:1fr 1fr}}
 @media(max-width:550px){.insights-panel{grid-template-columns:1fr}}
 .score-ring-wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+/* ── TOP-CATEGORY TAG ── */
+.top-cat-banner{display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:12px;margin-bottom:16px;border:1px solid rgba(255,95,109,.2);background:rgba(255,95,109,.06);animation:fadeUp .3s var(--ease) both}
+.top-cat-banner.ok{border-color:rgba(184,255,87,.18);background:rgba(184,255,87,.05)}
+.top-cat-banner.warn{border-color:rgba(255,184,48,.2);background:rgba(255,184,48,.05)}
+.top-cat-banner-ico{font-size:1.3rem;flex-shrink:0}
+.top-cat-banner-body{flex:1}
+.top-cat-banner-label{font-family:var(--fm);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:3px}
+.top-cat-banner-title{font-size:.88rem;font-weight:600;line-height:1.3}
+.top-cat-banner-sub{font-size:.73rem;color:var(--mist);margin-top:1px}
+.top-cat-banner-pct{font-family:var(--fd);font-size:1.4rem;letter-spacing:.02em;flex-shrink:0}
+/* ── DAYS REMAINING ── */
+.days-bar{display:flex;align-items:center;gap:14px;padding:13px 18px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--rim);margin-bottom:16px;flex-wrap:wrap}
+.days-ring{position:relative;width:52px;height:52px;flex-shrink:0}
+.days-ring svg{transform:rotate(-90deg)}
+.days-ring-bg{fill:none;stroke:rgba(255,255,255,.06);stroke-width:5}
+.days-ring-fill{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dasharray .6s var(--ease)}
+.days-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.days-num{font-family:var(--fd);font-size:1rem;line-height:1}
+.days-lbl{font-family:var(--fm);font-size:.38rem;letter-spacing:.08em;color:var(--ghost);text-transform:uppercase}
+.days-body{flex:1}
+.days-title{font-family:var(--fm);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:4px}
+.days-main{font-size:.88rem;font-weight:600;line-height:1.3}
+.days-detail{font-size:.73rem;color:var(--mist);margin-top:2px}
+/* ── WHATSAPP SHARE BTN ── */
+.btn-wa{background:rgba(37,211,102,.12);color:#25d366;border:1px solid rgba(37,211,102,.25)}
+.btn-wa:hover{background:rgba(37,211,102,.22);transform:translateY(-1px)}
 .score-ring{width:84px;height:84px;position:relative;flex-shrink:0}
 .score-ring svg{transform:rotate(-90deg)}
 .ring-bg{fill:none;stroke:rgba(255,255,255,.06);stroke-width:8}
@@ -215,7 +241,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
 <header class="hdr reveal d1">
   <div>
     <div class="logo-eye">// sistema de controle financeiro</div>
-    <div class="logo">Borel Bank</div>
+    <div class="logo">FINTRACK</div>
   </div>
   <div class="hdr-r">
     <span class="month-badge" id="hdr-month"></span>
@@ -279,7 +305,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
         </div>
       </div>
       <div style="flex:1">
-        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">Borel Bank</div>
+        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">FinTrack Score</div>
         <div id="score-items" style="display:flex;flex-direction:column;gap:5px"></div>
       </div>
     </div>
@@ -293,7 +319,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
         <div id="rule-bars"><div class="empty"><div class="empty-g">&#x25D1;</div><p>Informe sua renda</p></div></div>
       </div>
       <div class="card reveal d4">
-        <div class="sec-lbl">Score</div>
+        <div class="sec-lbl">FinTrack Score</div>
         <div style="text-align:center;padding:6px 0">
           <div id="score-num2" style="font-family:var(--fd);font-size:3rem;letter-spacing:.02em">&mdash;</div>
           <div style="font-family:var(--fm);font-size:.6rem;color:var(--ghost);margin-bottom:12px">PONTUA&Ccedil;&Atilde;O FINANCEIRA</div>
@@ -318,11 +344,18 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
       </div>
     </div>
   </div>
-  <div class="card reveal d5" style="margin-top:16px">
+  <!-- TOP CATEGORY BANNER -->
+  <div id="top-cat-banner-wrap" style="margin-top:16px"></div>
+
+  <!-- DAYS REMAINING BAR -->
+  <div id="days-bar-wrap"></div>
+
+  <div class="card reveal d5" style="margin-top:4px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
       <div class="card-title" style="margin:0">Hist&oacute;rico</div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span id="hist-count" style="font-family:var(--fm);font-size:.6rem;color:var(--mist)"></span>
+        <button class="btn btn-wa btn-sm" onclick="shareWhatsApp()">&#x1F4F2; WhatsApp</button>
         <button class="btn btn-glass btn-sm" onclick="exportXLSX()">&#x2B07; XLSX</button>
         <button class="btn btn-glass btn-sm" onclick="document.getElementById('csv-in').click()">&#x2B06; CSV</button>
         <input type="file" id="csv-in" accept=".csv" style="display:none"/>
@@ -360,20 +393,20 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
           <select id="exp-cat">
             <option value="">Selecione...</option>
             <optgroup label="Necessidades (50%)">
-              <option value="Alimentacao">Alimenta&ccedil;&atilde;o / Mercado</option>
-              <option value="Moradia">Moradia / Aluguel</option>
-              
-              <option value="Saude">Sa&uacute;de / Plano</option>
-              <option value="Educacao">Educa&ccedil;&atilde;o</option>
-              <option value="Cartao">Cart&atilde;o de Cr&eacute;dito</option>
-              <option value="Transporte">Transporte</option>
+              <option value="Alimentacao">&#x1F354; Alimenta&ccedil;&atilde;o / Mercado</option>
+              <option value="Moradia">&#x1F3E0; Moradia / Aluguel</option>
+              <option value="Energia">&#x1F4A1; Energia / &Aacute;gua</option>
+              <option value="Saude">&#x1F3E5; Sa&uacute;de / Plano</option>
+              <option value="Educacao">&#x1F4DA; Educa&ccedil;&atilde;o</option>
+              <option value="Cartao">&#x1F4B3; Cart&atilde;o de Cr&eacute;dito</option>
+              <option value="Transporte">&#x1F697; Transporte</option>
             </optgroup>
             <optgroup label="Desejos (30%)">
-              <option value="Lazer">Lazer / Esporte</option>
-              <option value="Restaurante"> Restaurante / Delivery</option>
-              <option value="Assinaturas"> Assinaturas</option>
-              <option value="Vestuario"> Vestu&aacute;rio</option>
-              <option value="Outros">Outros Desejos</option>
+              <option value="Lazer">&#x1F3AF; Lazer / Esporte</option>
+              <option value="Restaurante">&#x1F37D; Restaurante / Delivery</option>
+              <option value="Assinaturas">&#x1F4FA; Assinaturas</option>
+              <option value="Vestuario">&#x1F455; Vestu&aacute;rio</option>
+              <option value="Outros">&#x2728; Outros Desejos</option>
             </optgroup>
             <optgroup label="Futuro (20%)">
               <option value="Investimentos">&#x1F4C8; Investimentos</option>
@@ -499,7 +532,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
 </div>
 
 <footer>
-  <p>BOREL BANK &copy; 2026 &mdash; DADOS LOCAIS &middot;  SEM SERVIDOR</p>
+  <p>FINTRACK &copy; 2026 &mdash; DADOS LOCAIS &middot; LOCALSTORAGE &middot; SEM SERVIDOR</p>
   <div class="fdot"></div>
 </footer>
 </div>
@@ -534,24 +567,24 @@ function getMK(){ var s=document.getElementById('month-filter'); return s?s.valu
 
 /* ---- Category meta ---- */
 var CAT = {
-  'Alimentacao':   {e:'',c:'#3df5c1',bg:'rgba(61,245,193,.12)',  g:'N'},
-  'Moradia':       {e:'',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'N'},
-  
-  'Saude':         {e:'',c:'#a78bfa',bg:'rgba(167,139,250,.12)',  g:'N'},
-  'Educacao':      {e:'',c:'#60a5fa',bg:'rgba(96,165,250,.12)',   g:'N'},
-  'Cartao':        {e:'',c:'#ff7eb3',bg:'rgba(255,126,179,.12)',  g:'N'},
-  'Transporte':    {e:'',c:'#ffb830',bg:'rgba(255,184,48,.12)',   g:'N'},
-  'Lazer':         {e:'',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'D'},
-  'Restaurante':   {e:'',c:'#f97316',bg:'rgba(249,115,22,.12)',   g:'D'},
-  'Assinaturas':   {e:'',c:'#e879f9',bg:'rgba(232,121,249,.12)',  g:'D'},
-  'Vestuario':     {e:'',c:'#fb7185',bg:'rgba(251,113,133,.12)',  g:'D'},
-  'Outros':        {e:'', c:'#f472b6',bg:'rgba(244,114,182,.12)',  g:'D'},
-  'Investimentos': {e:'',c:'#b8ff57',bg:'rgba(184,255,87,.12)',   g:'F'},
-  'Reserva':       {e:'',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'F'}
+  'Alimentacao':   {e:'&#x1F354;',c:'#3df5c1',bg:'rgba(61,245,193,.12)',  g:'N'},
+  'Moradia':       {e:'&#x1F3E0;',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'N'},
+  'Energia':       {e:'&#x1F4A1;',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'N'},
+  'Saude':         {e:'&#x1F3E5;',c:'#a78bfa',bg:'rgba(167,139,250,.12)',  g:'N'},
+  'Educacao':      {e:'&#x1F4DA;',c:'#60a5fa',bg:'rgba(96,165,250,.12)',   g:'N'},
+  'Cartao':        {e:'&#x1F4B3;',c:'#ff7eb3',bg:'rgba(255,126,179,.12)',  g:'N'},
+  'Transporte':    {e:'&#x1F697;',c:'#ffb830',bg:'rgba(255,184,48,.12)',   g:'N'},
+  'Lazer':         {e:'&#x1F3AF;',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'D'},
+  'Restaurante':   {e:'&#x1F37D;',c:'#f97316',bg:'rgba(249,115,22,.12)',   g:'D'},
+  'Assinaturas':   {e:'&#x1F4FA;',c:'#e879f9',bg:'rgba(232,121,249,.12)',  g:'D'},
+  'Vestuario':     {e:'&#x1F455;',c:'#fb7185',bg:'rgba(251,113,133,.12)',  g:'D'},
+  'Outros':        {e:'&#x2728;', c:'#f472b6',bg:'rgba(244,114,182,.12)',  g:'D'},
+  'Investimentos': {e:'&#x1F4C8;',c:'#b8ff57',bg:'rgba(184,255,87,.12)',   g:'F'},
+  'Reserva':       {e:'&#x1F6E1;',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'F'}
 };
 
 var RULE_GROUPS = [
-  {key:'N',label:'Necessidades',pct:.50,color:'#3df5c1',cats:['Alimentacao','Moradia','Saude','Educacao','Cartao','Transporte'],hint:'50% — moradia, alimentacao, transporte, saude'},
+  {key:'N',label:'Necessidades',pct:.50,color:'#3df5c1',cats:['Alimentacao','Moradia','Energia','Saude','Educacao','Cartao','Transporte'],hint:'50% — moradia, alimentacao, transporte, saude'},
   {key:'D',label:'Desejos',     pct:.30,color:'#ffb830',cats:['Lazer','Restaurante','Assinaturas','Vestuario','Outros'],             hint:'30% — lazer, esporte, assinaturas'},
   {key:'F',label:'Futuro',      pct:.20,color:'#b8ff57',cats:['Investimentos','Reserva'],                                            hint:'20% — investimentos, reserva de emergencia'}
 ];
@@ -755,11 +788,170 @@ function render(){
 
   renderScore(txs,inc);
   renderInsights(txs,inc,mk);
+  renderTopCatBanner(txs,inc);
+  renderDaysBar(txs,inc);
   renderRuleBars(txs,inc);
   renderPieChart(txs);
   renderTop(txs);
   renderHistory(txs,mk);
   renderRecurringSuggestions();
+}
+
+/* ================================================
+   TOP CATEGORY BANNER
+   Mostra a categoria com maior gasto do mês e
+   o peso dela no orçamento total.
+================================================ */
+function renderTopCatBanner(txs, income) {
+  var wrap = el('top-cat-banner-wrap'); if (!wrap) return;
+  if (!txs.length) { wrap.innerHTML = ''; return; }
+
+  // Agrupa por categoria
+  var catTotals = {};
+  txs.forEach(function(t) { catTotals[t.cat] = (catTotals[t.cat]||0) + t.val; });
+  var topCat = Object.keys(catTotals).sort(function(a,b){return catTotals[b]-catTotals[a]})[0];
+  var topVal = catTotals[topCat];
+  var totAll  = txs.reduce(function(s,t){return s+t.val},0);
+  var pctOfTotal = totAll > 0 ? (topVal/totAll*100) : 0;
+  var pctOfIncome= income > 0 ? (topVal/income*100) : 0;
+  var m = CAT[topCat] || {e:'📦', c:'#8a90a8', bg:'rgba(138,144,168,.1)'};
+
+  // Cor do banner baseada no peso
+  var bClass = pctOfTotal > 50 ? 'crit' : pctOfTotal > 35 ? 'warn' : 'ok';
+  var bColor = bClass==='crit' ? 'var(--coral)' : bClass==='warn' ? 'var(--amber)' : m.c;
+  var msg = pctOfTotal > 50
+    ? 'Aten&ccedil;&atilde;o: esse gasto est&aacute; consumindo mais da metade do seu or&ccedil;amento.'
+    : pctOfTotal > 35
+      ? 'Esse item est&aacute; pesando bastante. Avalie se h&aacute; como reduzir.'
+      : 'Distribui&ccedil;&atilde;o saud&aacute;vel — nenhuma categoria est&aacute; dominando.';
+
+  wrap.innerHTML = '<div class="top-cat-banner '+bClass+'">'
+    +'<div class="top-cat-banner-ico">'+m.e+'</div>'
+    +'<div class="top-cat-banner-body">'
+    +'<div class="top-cat-banner-label">&#x1F525; Maior gasto do m&ecirc;s</div>'
+    +'<div class="top-cat-banner-title" style="color:'+bColor+'">'+topCat+' &mdash; R$ '+fmt(topVal)+'</div>'
+    +'<div class="top-cat-banner-sub">'+msg+(income>0?' &middot; '+pctOfIncome.toFixed(0)+'% da renda':'')+'</div>'
+    +'</div>'
+    +'<div class="top-cat-banner-pct" style="color:'+bColor+'">'+pctOfTotal.toFixed(0)+'%</div>'
+    +'</div>';
+}
+
+/* ================================================
+   DAYS REMAINING
+   Mostra quantos dias restam no mês e quanto
+   saldo isso representa por dia — baseado no
+   saldo REAL, não em projeção de gastos.
+================================================ */
+function renderDaysBar(txs, income) {
+  var wrap = el('days-bar-wrap'); if (!wrap) return;
+  if (!income) { wrap.innerHTML = ''; return; }
+
+  var today    = new Date();
+  var y = today.getFullYear(), m = today.getMonth()+1;
+  var daysInMonth = new Date(y, m, 0).getDate();
+  var daysPassed  = today.getDate();
+  var daysLeft    = daysInMonth - daysPassed;
+
+  var tot = txs.reduce(function(s,t){return s+t.val},0);
+  var bal = income - tot;
+
+  // % do mês que passou
+  var monthPct = (daysPassed / daysInMonth) * 100;
+  var circ = 2 * Math.PI * 22; // r=22
+  var dashArr = (monthPct / 100) * circ;
+
+  // Cor: vermelho se saldo negativo, âmbar se menos de R$50/dia, verde se ok
+  var perDay  = daysLeft > 0 ? bal / daysLeft : 0;
+  var ringColor = bal < 0 ? '#ff5f6d' : perDay < 50 ? '#ffb830' : '#3df5c1';
+
+  var mainText, detailText;
+  if (bal <= 0) {
+    mainText  = 'Saldo esgotado &mdash; R$ '+fmt(Math.abs(bal))+' no vermelho';
+    detailText= 'Evite qualquer gasto novo at&eacute; o pr&oacute;ximo m&ecirc;s.';
+  } else if (daysLeft === 0) {
+    mainText  = 'Hoje &eacute; o &uacute;ltimo dia do m&ecirc;s';
+    detailText= 'Saldo restante: R$ '+fmt(bal)+'.';
+  } else {
+    mainText  = daysLeft+' dias restantes &middot; R$ '+fmt(perDay)+'/dia dispon&iacute;vel';
+    detailText= 'Saldo atual R$ '+fmt(bal)+' dividido pelos '+daysLeft+' dias que faltam.';
+  }
+
+  wrap.innerHTML = '<div class="days-bar">'
+    +'<div class="days-ring">'
+    +'<svg viewBox="0 0 50 50" width="52" height="52">'
+    +'<circle class="days-ring-bg" cx="25" cy="25" r="22"/>'
+    +'<circle class="days-ring-fill" cx="25" cy="25" r="22" stroke="'+ringColor+'" stroke-dasharray="'+dashArr.toFixed(1)+' '+circ.toFixed(1)+'"/>'
+    +'</svg>'
+    +'<div class="days-center">'
+    +'<div class="days-num" style="color:'+ringColor+'">'+daysPassed+'</div>'
+    +'<div class="days-lbl">dia</div>'
+    +'</div></div>'
+    +'<div class="days-body">'
+    +'<div class="days-title">Dias do m&ecirc;s &mdash; '+daysPassed+'/'+daysInMonth+'</div>'
+    +'<div class="days-main">'+mainText+'</div>'
+    +'<div class="days-detail">'+detailText+'</div>'
+    +'</div></div>';
+}
+
+/* ================================================
+   WHATSAPP SHARE
+   Gera um relatório textual do mês atual e abre
+   o WhatsApp com a mensagem pré-preenchida.
+================================================ */
+function shareWhatsApp() {
+  var mk   = getMK();
+  var d    = getMonthData(mk);
+  var txs  = d.txs || [];
+  var inc  = d.income || 0;
+  var tot  = txs.reduce(function(s,t){return s+t.val},0);
+  var bal  = inc - tot;
+  var inv  = txs.filter(function(t){return t.cat==='Investimentos'||t.cat==='Reserva'}).reduce(function(s,t){return s+t.val},0);
+
+  var parts    = mk.split('-');
+  var mesLabel = new Date(parts[0], parts[1]-1, 1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  mesLabel = mesLabel.charAt(0).toUpperCase() + mesLabel.slice(1);
+
+  var catTotals = {};
+  txs.forEach(function(t){ catTotals[t.cat] = (catTotals[t.cat]||0)+t.val; });
+  var catLines = Object.keys(catTotals)
+    .sort(function(a,b){return catTotals[b]-catTotals[a]})
+    .map(function(k){ return '  - '+k+': R$ '+fmt(catTotals[k]); })
+    .join('%0A');
+
+  var des = txs.filter(function(t){return RULE_GROUPS[1].cats.indexOf(t.cat)>=0}).reduce(function(s,t){return s+t.val},0);
+  var cc  = txs.filter(function(t){return t.cat==='Cartao'}).reduce(function(s,t){return s+t.val},0);
+  var scoreVal = [
+    inv>0?25:0,
+    inc>0&&des<=inc*.30?20:0,
+    txs.some(function(t){return t.cat==='Reserva'})?20:0,
+    inc>0&&cc<=inc*.20?15:0,
+    inc>0&&bal>=inc*.10?20:0
+  ].reduce(function(a,b){return a+b},0);
+
+  var balSign = bal >= 0 ? '+' : '-';
+  var statusMsg = bal < 0
+    ? 'Saldo negativo este mes!'
+    : scoreVal >= 80 ? 'Excelente controle financeiro!'
+    : scoreVal >= 50 ? 'Ainda da pra melhorar.'
+    : 'Atencao aos gastos!';
+
+  var NL = '%0A';
+  var msg = '*Relatorio Financeiro - ' + mesLabel + '*' + NL
+    + NL
+    + 'Renda: R$ ' + fmt(inc) + NL
+    + 'Gastos: R$ ' + fmt(tot) + (inc>0 ? ' (' + Math.round(tot/inc*100) + '%)' : '') + NL
+    + 'Saldo: ' + balSign + 'R$ ' + fmt(Math.abs(bal)) + NL
+    + 'Investido: R$ ' + fmt(inv) + NL
+    + NL
+    + '*Por Categoria:*' + NL
+    + (catLines || '  (nenhum gasto)') + NL
+    + NL
+    + '*FinTrack Score: ' + scoreVal + '/100*' + NL
+    + statusMsg + NL
+    + NL
+    + '_Gerado pelo FinTrack_';
+
+  window.open('https://wa.me/?text=' + msg, '_blank');
 }
 
 /* ================================================
@@ -773,8 +965,7 @@ function renderInsights(txs, income, mk) {
 
   /* Sem renda: exibe apenas dica de configuração */
   if (!income) {
-    cont.innerHTML = insightCard('idle','&#x1F4B0;','Configure sua renda',
-      'Informe seu sal&aacute;rio na aba Lan&ccedil;amentos para ativar as sugest&otilde;es personalizadas.','');
+    cont.innerHTML = insightCard('idle','&#x1F4B0;','Configure sua renda','Informe seu sal&aacute;rio na aba Lan&ccedil;amentos para ativar as sugest&otilde;es personalizadas.','').html;
     return;
   }
 
@@ -811,7 +1002,7 @@ function renderInsights(txs, income, mk) {
     var sugestInv = fmt(income * 0.10);
     cards.push(insightCard('warn','&#x1F4C8;','Investimento Zerado',
       'Voc&ecirc; ainda n&atilde;o registrou nenhum investimento neste m&ecirc;s.',
-      'Comece com pelo menos 10% da renda (R$ '+sugestInv+'). Pequenos aportes constantes fazem grande diferen&ccedil;a.'));
+      'Comece com pelo menos 10% da renda (R$ '+sugestInv+'). Peque&ntilde;os aportes constantes fazem grande diferen&ccedil;a.'));
   } else {
     var invPct = (inv / income) * 100;
     var invType = invPct >= 20 ? 'ok' : invPct >= 10 ? 'info' : 'warn';
@@ -868,9 +1059,7 @@ function renderInsights(txs, income, mk) {
 
   /* ── 7. PARABÉNS (mês zero gastos) ─────────*/
   if (!txs.length) {
-    cont.innerHTML = insightCard('idle','&#x1F4DD;','Nenhum Lançamento',
-      'Comece registrando seus gastos do m&ecirc;s na aba Lan&ccedil;amentos.',
-      'Quanto mais voc&ecirc; registrar, mais precisas ser&atilde;o as sugest&otilde;es.');
+    cont.innerHTML = insightCard('idle','&#x1F4DD;','Nenhum Lan&ccedil;amento','Comece registrando seus gastos do m&ecirc;s na aba Lan&ccedil;amentos.','Quanto mais voc&ecirc; registrar, mais precisas ser&atilde;o as sugest&otilde;es.').html;
     return;
   }
 
@@ -910,7 +1099,7 @@ function renderScore(txs,income){
   var score=criteria.reduce(function(s,c){return s+(c.ok?c.pts:0)},0);
   var color=score>=80?'var(--lime)':score>=50?'var(--amber)':'var(--coral)';
   var circ=2*Math.PI*34, off=circ-(score/100)*circ;
-  ['score-num','score-num2'].forEach(function(id){var e=el(id);if(e){e.textContent=score;e.style.color=color}});
+  ['score-num'].forEach(function(id){var e=el(id);if(e){e.textContent=score;e.style.color=color}});
   var rf=el('score-ring-fill'); if(rf){rf.style.stroke=color;rf.style.strokeDashoffset=off}
   var itemsHtml=criteria.map(function(c){return '<div class="score-item"><span>'+(c.ok?'&#x2705;':'&#x274C;')+'</span><span style="color:'+(c.ok?'var(--snow)':'var(--mist)')+'">'+c.label+'</span></div>'}).join('');
   if(el('score-items')) el('score-items').innerHTML=itemsHtml;
@@ -1137,7 +1326,7 @@ function renderPatrimony(){
     var canvas=el('pat-chart');
     if(patChartInst){patChartInst.destroy();patChartInst=null}
     patChartInst=new Chart(canvas,{type:'line',
-      data:{labels:mks.map(mkLabel),datasets:[{label:'Patrim&#244;nio',data:mks.map(function(mk){return patByMonth[mk]}),borderColor:'#b8ff57',backgroundColor:'rgba(184,255,87,.07)',fill:true,tension:.4,pointBackgroundColor:'#b8ff57',pointRadius:4,pointHoverRadius:6}]},
+      data:{labels:mks.map(mkLabel),datasets:[{label:'Patrimônio',data:mks.map(function(mk){return patByMonth[mk]}),borderColor:'#b8ff57',backgroundColor:'rgba(184,255,87,.07)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:'#b8ff57',pointBorderColor:'#b8ff57',pointRadius:5,pointHoverRadius:8}]},
       options:{responsive:true,maintainAspectRatio:false,
         scales:{x:{ticks:{color:'#3a3f52',font:{family:'JetBrains Mono',size:10}},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#3a3f52',font:{family:'JetBrains Mono',size:10},callback:function(v){return 'R$'+fmtK(v)}},grid:{color:'rgba(255,255,255,.04)'}}},
         plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(12,14,20,.95)',borderColor:'rgba(255,255,255,.09)',borderWidth:1,callbacks:{label:function(c){return 'R$ '+fmt(c.raw)}}}}}});
@@ -1161,9 +1350,9 @@ function renderRelatorios(){
     var saldo=mks.map(function(mk,i){return Math.max(0,(allM[mk].income||0)-gastos[i]-invest[i])});
     charts['line']=new Chart(lc,{type:'line',
       data:{labels:mks.map(mkLabel),datasets:[
-        {label:'Gastos',data:gastos,borderColor:'#ff5f6d',backgroundColor:'rgba(255,95,109,.07)',fill:true,tension:.4,pointRadius:3},
-        {label:'Investimentos',data:invest,borderColor:'#b8ff57',backgroundColor:'rgba(184,255,87,.07)',fill:true,tension:.4,pointRadius:3},
-        {label:'Saldo',data:saldo,borderColor:'#3df5c1',backgroundColor:'rgba(61,245,193,.05)',fill:true,tension:.4,pointRadius:3}]},
+        {label:'Gastos',data:gastos,borderColor:'#ff5f6d',backgroundColor:'rgba(255,95,109,.07)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:'#ff5f6d',pointBorderColor:'#ff5f6d',pointRadius:4,pointHoverRadius:7},
+        {label:'Investimentos',data:invest,borderColor:'#b8ff57',backgroundColor:'rgba(184,255,87,.07)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:'#b8ff57',pointBorderColor:'#b8ff57',pointRadius:4,pointHoverRadius:7},
+        {label:'Saldo',data:saldo,borderColor:'#3df5c1',backgroundColor:'rgba(61,245,193,.05)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:'#3df5c1',pointBorderColor:'#3df5c1',pointRadius:4,pointHoverRadius:7}]},
       options:{responsive:true,maintainAspectRatio:false,
         scales:{x:{ticks:{color:'#3a3f52',font:{family:'JetBrains Mono',size:10}},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#3a3f52',font:{family:'JetBrains Mono',size:10},callback:function(v){return 'R$'+fmtK(v)}},grid:{color:'rgba(255,255,255,.04)'}}},
         plugins:{legend:{labels:{color:'#8a90a8',font:{family:'JetBrains Mono',size:10},boxWidth:10}},tooltip:{backgroundColor:'rgba(12,14,20,.95)',borderColor:'rgba(255,255,255,.09)',borderWidth:1,callbacks:{label:function(c){return c.dataset.label+': R$ '+fmt(c.raw)}}}}}});
@@ -1257,7 +1446,7 @@ function inferCat(desc){
   if(/academia|gym|crossfit/.test(d)) return 'Lazer';
   if(/investimento|tesouro|cdb|fundo|acoes|btc/.test(d)) return 'Investimentos';
   if(/aluguel|condominio|iptu/.test(d)) return 'Moradia';
-  
+  if(/energia|luz|agua|internet|telefone/.test(d)) return 'Energia';
   return 'Outros';
 }
 
