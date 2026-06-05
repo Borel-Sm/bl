@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>FINTRACK — Controle Financeiro</title>
+<title>BL BANK — Controle Financeiro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -46,7 +46,7 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 .kpi:first-child{border-radius:16px 0 0 16px}
 .kpi:last-child{border-radius:0 16px 16px 0}
 .kpi-accent{position:absolute;top:0;left:0;right:0;height:2px}
-.kpi-lbl{font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:12px}
+.kpi-lbl{font-family:var(--fm);font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:whitesmoke;margin-bottom:12px}
 .kpi-val{font-family:var(--fd);font-size:clamp(1.4rem,2.2vw,2rem);letter-spacing:.01em;line-height:1;margin-bottom:6px}
 .kpi-sub{font-size:.72rem;color:var(--mist)}
 /* ── INSIGHTS PANEL ── */
@@ -145,7 +145,7 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 .track{height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
 .fill{height:100%;border-radius:99px;transition:width .8s var(--ease)}
 .over-label{font-family:var(--fm);font-size:.58rem;letter-spacing:.06em;color:var(--coral);margin-top:4px}
-.rule-hint{font-family:var(--fm);font-size:.58rem;color:var(--ghost);margin-top:3px}
+.rule-hint{font-family:var(--fm);font-size:.60rem;color:var(--ghost);margin-top:3px}
 .tx{display:grid;grid-template-columns:40px 1fr auto auto;align-items:center;gap:12px;padding:13px 14px;border-radius:13px;border:1px solid transparent;margin-bottom:5px;background:rgba(255,255,255,.025);transition:all .2s var(--ease);animation:txIn .3s var(--ease) both}
 .tx:hover{background:rgba(255,255,255,.05);border-color:var(--rim);transform:translateX(3px)}
 @keyframes txIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
@@ -270,20 +270,20 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
 <header class="hdr reveal d1">
   <div>
     <div class="logo-eye">// sistema de controle financeiro</div>
-    <div class="logo">FINTRACK</div>
+    <div class="logo">BL BANK</div>
   </div>
   <div class="hdr-r">
     <span class="month-badge" id="hdr-month"></span>
-    <span style="font-size:.73rem;color:var(--ghost)">100% local &middot; sem servidor</span>
+    <span style="font-size:.73rem;color:var(--ghost)">&#x271D;  Fé em Deus, que ele é justo</span>
   </div>
 </header>
 
 <div class="nav-tabs reveal d2">
-  <button class="tab active" data-page="dashboard">&#x1F4CA; Dashboard</button>
-  <button class="tab" data-page="lancamentos">&#x2795; Lan&ccedil;amentos</button>
-  <button class="tab" data-page="metas">&#x1F3AF; Metas</button>
-  <button class="tab" data-page="patrimonio">&#x1F4CE; Patrim&ocirc;nio</button>
-  <button class="tab" data-page="relatorios">&#x1F4C8; Relat&oacute;rios</button>
+  <button class="tab active" data-page="dashboard">Inicio</button>
+  <button class="tab" data-page="lancamentos"> Lan&ccedil;amentos</button>
+  <button class="tab" data-page="metas">Metas</button>
+  <button class="tab" data-page="patrimonio">Patrim&ocirc;nio</button>
+  <button class="tab" data-page="relatorios">Relat&oacute;rios</button>
   <button class="tab" data-page="config">&#x2699;&#xFE0F; Config</button>
 </div>
 
@@ -334,7 +334,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
         </div>
       </div>
       <div style="flex:1">
-        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">FinTrack Score</div>
+        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">Score</div>
         <div id="score-items" style="display:flex;flex-direction:column;gap:5px"></div>
       </div>
     </div>
@@ -348,7 +348,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
         <div id="rule-bars"><div class="empty"><div class="empty-g">&#x25D1;</div><p>Informe sua renda</p></div></div>
       </div>
       <div class="card reveal d4">
-        <div class="sec-lbl">FinTrack Score</div>
+        <div class="sec-lbl">Score</div>
         <div style="text-align:center;padding:6px 0">
           <div id="score-num2" style="font-family:var(--fd);font-size:3rem;letter-spacing:.02em">&mdash;</div>
           <div style="font-family:var(--fm);font-size:.6rem;color:var(--ghost);margin-bottom:12px">PONTUA&Ccedil;&Atilde;O FINANCEIRA</div>
@@ -422,24 +422,21 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
           <select id="exp-cat">
             <option value="">Selecione...</option>
             <optgroup label="Necessidades (50%)">
-              <option value="Alimentacao">&#x1F354; Alimenta&ccedil;&atilde;o / Mercado</option>
-              <option value="Moradia">&#x1F3E0; Moradia / Aluguel</option>
-              <option value="Energia">&#x1F4A1; Energia / &Aacute;gua</option>
-              <option value="Saude">&#x1F3E5; Sa&uacute;de / Plano</option>
-              <option value="Educacao">&#x1F4DA; Educa&ccedil;&atilde;o</option>
-              <option value="Cartao">&#x1F4B3; Cart&atilde;o de Cr&eacute;dito</option>
-              <option value="Transporte">&#x1F697; Transporte</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Saude">Sa&uacute;de</option>
+              <option value="Educacao">Educa&ccedil;&atilde;o</option>
+              <option value="Cartao">Cart&atilde;o de Cr&eacute;dito</option>
+              <option value="Transporte">Transporte</option>
             </optgroup>
             <optgroup label="Desejos (30%)">
-              <option value="Lazer">&#x1F3AF; Lazer / Esporte</option>
-              <option value="Restaurante">&#x1F37D; Restaurante / Delivery</option>
-              <option value="Assinaturas">&#x1F4FA; Assinaturas</option>
-              <option value="Vestuario">&#x1F455; Vestu&aacute;rio</option>
-              <option value="Outros">&#x2728; Outros Desejos</option>
+              <option value="Lazer">Lazer / Esporte</option>
+              <option value="Assinaturas"> Assinaturas</option>
+              <option value="Vestuario"> Vestu&aacute;rio</option>
+              <option value="Outros">Outros Desejos</option>
             </optgroup>
             <optgroup label="Futuro (20%)">
-              <option value="Investimentos">&#x1F4C8; Investimentos</option>
-              <option value="Reserva">&#x1F6E1; Reserva de Emerg&ecirc;ncia</option>
+              <option value="Investimentos">Investimentos</option>
+              <option value="Reserva">Reserva de Emerg&ecirc;ncia</option>
             </optgroup>
           </select>
         </div>
@@ -552,17 +549,16 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
     <div class="card" style="align-self:start">
       <div class="card-title">Sobre</div>
       <div style="font-size:.82rem;color:var(--mist);line-height:2">
-        <p>&#x1F4E6; Vers&atilde;o 2.0</p>
-        <p>&#x1F512; 100% local &mdash; localStorage</p>
-        <p>&#x1F4CA; Chart.js 4.4 &middot; SheetJS 0.18</p>
-        <p>&#x1F3A8; Bebas Neue &middot; Instrument Sans &middot; JetBrains Mono</p>
+        <p>&#x1F4F1; Vers&atilde;o 1.0</p>
+        <p>&#x1F512; 100% local </p>
+        <p>Desenvolvido por Borel &#x00AE;</p>
       </div>
     </div>
   </div>
 </div>
 
 <footer>
-  <p>FINTRACK &copy; 2026 &mdash; DADOS LOCAIS &middot; LOCALSTORAGE &middot; SEM SERVIDOR</p>
+  <p>BL BANK &copy; 2026 &mdash; DADOS LOCAIS &middot; SM É O SETOR</p>
   <div class="fdot"></div>
 </footer>
 </div>
@@ -597,26 +593,23 @@ function getMK(){ var s=document.getElementById('month-filter'); return s?s.valu
 
 /* ---- Category meta ---- */
 var CAT = {
-  'Alimentacao':   {e:'&#x1F354;',c:'#3df5c1',bg:'rgba(61,245,193,.12)',  g:'N'},
-  'Moradia':       {e:'&#x1F3E0;',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'N'},
-  'Energia':       {e:'&#x1F4A1;',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'N'},
-  'Saude':         {e:'&#x1F3E5;',c:'#a78bfa',bg:'rgba(167,139,250,.12)',  g:'N'},
-  'Educacao':      {e:'&#x1F4DA;',c:'#60a5fa',bg:'rgba(96,165,250,.12)',   g:'N'},
-  'Cartao':        {e:'&#x1F4B3;',c:'#ff7eb3',bg:'rgba(255,126,179,.12)',  g:'N'},
-  'Transporte':    {e:'&#x1F697;',c:'#ffb830',bg:'rgba(255,184,48,.12)',   g:'N'},
-  'Lazer':         {e:'&#x1F3AF;',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'D'},
-  'Restaurante':   {e:'&#x1F37D;',c:'#f97316',bg:'rgba(249,115,22,.12)',   g:'D'},
-  'Assinaturas':   {e:'&#x1F4FA;',c:'#e879f9',bg:'rgba(232,121,249,.12)',  g:'D'},
-  'Vestuario':     {e:'&#x1F455;',c:'#fb7185',bg:'rgba(251,113,133,.12)',  g:'D'},
-  'Outros':        {e:'&#x2728;', c:'#f472b6',bg:'rgba(244,114,182,.12)',  g:'D'},
-  'Investimentos': {e:'&#x1F4C8;',c:'#b8ff57',bg:'rgba(184,255,87,.12)',   g:'F'},
-  'Reserva':       {e:'&#x1F6E1;',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'F'}
+  'Moradia':       {e:'',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'N'},
+  'Saude':         {e:'',c:'#a78bfa',bg:'rgba(167,139,250,.12)',  g:'N'},
+  'Educacao':      {e:'',c:'#60a5fa',bg:'rgba(96,165,250,.12)',   g:'N'},
+  'Cartao':        {e:'',c:'#ff7eb3',bg:'rgba(255,126,179,.12)',  g:'N'},
+  'Transporte':    {e:'',c:'#ffb830',bg:'rgba(255,184,48,.12)',   g:'N'},
+  'Lazer':         {e:'',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'D'},
+  'Assinaturas':   {e:'',c:'#e879f9',bg:'rgba(232,121,249,.12)',  g:'D'},
+  'Vestuario':     {e:'',c:'#fb7185',bg:'rgba(251,113,133,.12)',  g:'D'},
+  'Outros':        {e:'', c:'#f472b6',bg:'rgba(244,114,182,.12)',  g:'D'},
+  'Investimentos': {e:'',c:'#b8ff57',bg:'rgba(184,255,87,.12)',   g:'F'},
+  'Reserva':       {e:'',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'F'}
 };
 
 var RULE_GROUPS = [
-  {key:'N',label:'Necessidades',pct:.50,color:'#3df5c1',cats:['Alimentacao','Moradia','Energia','Saude','Educacao','Cartao','Transporte'],hint:'50% — moradia, alimentacao, transporte, saude'},
-  {key:'D',label:'Desejos',     pct:.30,color:'#ffb830',cats:['Lazer','Restaurante','Assinaturas','Vestuario','Outros'],             hint:'30% — lazer, esporte, assinaturas'},
-  {key:'F',label:'Futuro',      pct:.20,color:'#b8ff57',cats:['Investimentos','Reserva'],                                            hint:'20% — investimentos, reserva de emergencia'}
+  {key:'N',label:'Necessidades',pct:.50,color:'#3df5c1',cats:['Alimentacao','Moradia','Saude','Educacao','Cartao','Transporte'],hint:'50% — GASTOS ESSENCIAIS'},
+  {key:'D',label:'Desejos',     pct:.30,color:'#ffb830',cats:['Lazer','Assinaturas','Vestuario','Outros'],             hint:'30% — DESEJOS E LAZER'},
+  {key:'F',label:'Futuro',      pct:.20,color:'#b8ff57',cats:['Investimentos','Reserva'],                                            hint:'20% — INVESTIMENTOS E EMERG&#202;NCIA'}
 ];
 
 var charts = {};
@@ -976,10 +969,10 @@ function shareWhatsApp() {
     + '*Por Categoria:*' + NL
     + (catLines || '  (nenhum gasto)') + NL
     + NL
-    + '*FinTrack Score: ' + scoreVal + '/100*' + NL
+    + '*Score: ' + scoreVal + '/100*' + NL
     + statusMsg + NL
     + NL
-    + '_Gerado pelo FinTrack_';
+    + '_Gerado pelo BL BANK_';
 
   window.open('https://wa.me/?text=' + msg, '_blank');
 }
@@ -1425,8 +1418,8 @@ function exportXLSX(){
   var ws=XLSX.utils.aoa_to_sheet(rows);
   ws['!cols']=[{wch:12},{wch:35},{wch:22},{wch:14},{wch:12}];
   var wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,mkLabel(mk));
-  XLSX.writeFile(wb,'fintrack_'+mk+'.xlsx');
-  toast('ok','Exportado!','fintrack_'+mk+'.xlsx');
+  XLSX.writeFile(wb,'blbank_'+mk+'.xlsx');
+  toast('ok','Exportado!','blbank_'+mk+'.xlsx');
 }
 
 /* ================================================
@@ -1470,13 +1463,10 @@ function inferCat(desc){
   var d=desc.toLowerCase();
   if(/netflix|spotify|amazon|prime|disney|hbo/.test(d)) return 'Assinaturas';
   if(/uber|99|cabify|taxi|onibus|metro|gasolina|estacion/.test(d)) return 'Transporte';
-  if(/mercado|supermercado|carrefour|extra|assai|pao de acucar|atacado/.test(d)) return 'Alimentacao';
   if(/farmacia|hospital|clinica|medico|dentista/.test(d)) return 'Saude';
-  if(/restaurante|ifood|rappi|delivery|burger|pizza/.test(d)) return 'Restaurante';
   if(/academia|gym|crossfit/.test(d)) return 'Lazer';
   if(/investimento|tesouro|cdb|fundo|acoes|btc/.test(d)) return 'Investimentos';
   if(/aluguel|condominio|iptu/.test(d)) return 'Moradia';
-  if(/energia|luz|agua|internet|telefone/.test(d)) return 'Energia';
   return 'Outros';
 }
 
@@ -1487,8 +1477,8 @@ function backupJSON(){
   var data={months:getMonths(),goals:getGoals(),patGoal:getPatGoal(),recs:getRecs(),exported:new Date().toISOString(),version:'2.0'};
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob); a.download='fintrack_backup_'+todayMK()+'.json'; a.click();
-  toast('ok','Backup salvo!','fintrack_backup_'+todayMK()+'.json');
+  a.href=URL.createObjectURL(blob); a.download='blbank_backup_'+todayMK()+'.json'; a.click();
+  toast('ok','Backup salvo!','blbank_backup_'+todayMK()+'.json');
 }
 function restoreJSON(event){
   var file=event.target.files[0]; if(!file) return;
