@@ -37,7 +37,7 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 .month-badge{font-family:var(--fm);font-size:.65rem;letter-spacing:.12em;color:var(--mist);text-transform:uppercase}
 .month-filter-row{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
 .month-filter-row label{font-family:var(--fm);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost)}
-#month-filter{font-family:var(--fm);font-size:.78rem;background:var(--glass);color:var(--snow);border:1px solid var(--rim);border-radius:10px;padding:8px 14px;outline:none;cursor:pointer;transition:border-color .2s}
+#month-filter{font-family:var(--fm);font-size:.78rem;background:#1a1d2a;color:#f0f2f8;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:8px 14px;outline:none;cursor:pointer;transition:border-color .2s}
 #month-filter:focus{border-color:var(--lime)}
 #month-filter option{background:#0f1117}
 .kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rim);border-radius:18px;overflow:hidden;margin-bottom:4px}
@@ -46,7 +46,7 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 .kpi:first-child{border-radius:16px 0 0 16px}
 .kpi:last-child{border-radius:0 16px 16px 0}
 .kpi-accent{position:absolute;top:0;left:0;right:0;height:2px}
-.kpi-lbl{font-family:var(--fm);font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:whitesmoke;margin-bottom:12px}
+.kpi-lbl{font-family:var(--fm);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:whitesmoke;margin-bottom:12px}
 .kpi-val{font-family:var(--fd);font-size:clamp(1.4rem,2.2vw,2rem);letter-spacing:.01em;line-height:1;margin-bottom:6px}
 .kpi-sub{font-size:.72rem;color:var(--mist)}
 /* ── INSIGHTS PANEL ── */
@@ -112,9 +112,10 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 .g2r{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .fg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
 .fg label{font-family:var(--fm);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist)}
-.fg input,.fg select{font-family:var(--fb);font-size:.88rem;background:rgba(255,255,255,.04);color:var(--snow);border:1px solid var(--rim);border-radius:10px;padding:10px 13px;width:100%;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;appearance:none}
-.fg input:focus,.fg select:focus{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.07);box-shadow:0 0 0 3px rgba(255,255,255,.04)}
-.fg select option{background:#0f1117}
+.fg input,.fg select{font-family:var(--fb);font-size:.88rem;background:#141720;color:#f0f2f8;border:1px solid var(--rim);border-radius:10px;padding:10px 13px;width:100%;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
+.fg input:focus,.fg select:focus{border-color:rgba(255,255,255,.3);background:#1e2333;box-shadow:0 0 0 3px rgba(255,255,255,.04)}
+.fg select option{background:#141720;color:#f0f2f8}
+.fg select optgroup{background:#0d0f14;color:#8a90a8}
 .fg .checkbox-row{display:flex;align-items:center;gap:8px;padding:8px 0}
 .fg .checkbox-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--lime);cursor:pointer;flex-shrink:0}
 .fg .checkbox-row span{font-size:.84rem;color:var(--snow);cursor:pointer}
@@ -145,7 +146,7 @@ body{font-family:var(--fb);background:var(--ink);color:var(--snow);min-height:10
 .track{height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
 .fill{height:100%;border-radius:99px;transition:width .8s var(--ease)}
 .over-label{font-family:var(--fm);font-size:.58rem;letter-spacing:.06em;color:var(--coral);margin-top:4px}
-.rule-hint{font-family:var(--fm);font-size:.60rem;color:var(--ghost);margin-top:3px}
+.rule-hint{font-family:var(--fm);font-size:.58rem;color:var(--ghost);margin-top:3px}
 .tx{display:grid;grid-template-columns:40px 1fr auto auto;align-items:center;gap:12px;padding:13px 14px;border-radius:13px;border:1px solid transparent;margin-bottom:5px;background:rgba(255,255,255,.025);transition:all .2s var(--ease);animation:txIn .3s var(--ease) both}
 .tx:hover{background:rgba(255,255,255,.05);border-color:var(--rim);transform:translateX(3px)}
 @keyframes txIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
@@ -259,6 +260,9 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
   transition:transform .25s cubic-bezier(.4,0,.2,1);
 }
 .toggle-row.active .toggle-thumb{ transform:translateX(20px); }
+
+
+
 </style>
 </head>
 <body>
@@ -274,16 +278,16 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
   </div>
   <div class="hdr-r">
     <span class="month-badge" id="hdr-month"></span>
-    <span style="font-size:.73rem;color:var(--ghost)">&#x271D;  Fé em Deus, que ele é justo</span>
+    <span style="font-size:.80rem;color:var(--ghost)">Fé em Deus</span>
   </div>
 </header>
 
 <div class="nav-tabs reveal d2">
-  <button class="tab active" data-page="dashboard">Inicio</button>
-  <button class="tab" data-page="lancamentos"> Lan&ccedil;amentos</button>
-  <button class="tab" data-page="metas">Metas</button>
-  <button class="tab" data-page="patrimonio">Patrim&ocirc;nio</button>
-  <button class="tab" data-page="relatorios">Relat&oacute;rios</button>
+  <button class="tab active" data-page="dashboard">&#x1F4CA; Dashboard</button>
+  <button class="tab" data-page="lancamentos">&#x2795; Lan&ccedil;amentos</button>
+  <button class="tab" data-page="metas">&#x1F3AF; Metas</button>
+  <button class="tab" data-page="patrimonio">&#x1F4CE; Patrim&ocirc;nio</button>
+  <button class="tab" data-page="relatorios">&#x1F4C8; Relat&oacute;rios</button>
   <button class="tab" data-page="config">&#x2699;&#xFE0F; Config</button>
 </div>
 
@@ -291,7 +295,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
 <div class="page active" id="page-dashboard">
   <div class="month-filter-row reveal d2">
     <label>Per&iacute;odo</label>
-    <select id="month-filter"></select>
+    <select id="month-filter" onchange="onMonthChange()"></select>
   </div>
   <div id="alerts"></div>
   <div class="kpi-strip reveal d2" style="margin-bottom:4px">
@@ -334,7 +338,7 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
         </div>
       </div>
       <div style="flex:1">
-        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">Score</div>
+        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">BL Bank</div>
         <div id="score-items" style="display:flex;flex-direction:column;gap:5px"></div>
       </div>
     </div>
@@ -401,10 +405,32 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
       <div class="card reveal d2">
         <div class="sec-lbl">Renda do M&ecirc;s</div>
         <div class="income-num" id="inc-display">R$ &mdash;</div>
-        <div class="income-row">
+
+        <!-- Renda do mês selecionado -->
+        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);margin-bottom:6px">
+          M&ecirc;s atual
+        </div>
+        <div class="income-row" style="margin-bottom:16px">
           <input type="number" id="income-input" placeholder="Ex: 3500" min="0" step="0.01"/>
           <button class="btn btn-lime" onclick="saveIncome()">&#x2713; Salvar</button>
         </div>
+
+        <!-- Divisor -->
+        <div style="height:1px;background:var(--rim);margin-bottom:16px"></div>
+
+        <!-- Programar renda futura -->
+        <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">
+          Programar renda futura
+        </div>
+        <div style="font-size:.78rem;color:var(--mist);margin-bottom:10px;line-height:1.5">
+          Informe a renda de um m&ecirc;s futuro. Os gastos agendados para aquele m&ecirc;s usar&atilde;o esse valor nos c&aacute;lculos.
+        </div>
+        <div class="income-row" style="flex-wrap:wrap;gap:8px">
+          <select id="future-month-sel" style="font-family:var(--fm);font-size:.78rem;background:#1a1d2a;color:#f0f2f8;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:9px 12px;outline:none;appearance:none;cursor:pointer;min-width:140px"></select>
+          <input type="number" id="future-income-input" placeholder="R$ renda" min="0" step="0.01" style="width:120px"/>
+          <button class="btn btn-glass btn-sm" onclick="saveFutureIncome()" style="padding:9px 14px">Programar</button>
+        </div>
+        <div id="future-income-list" style="margin-top:12px"></div>
       </div>
       <div id="rec-suggest-wrap"></div>
       <div class="card reveal d3">
@@ -423,20 +449,21 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
             <option value="">Selecione...</option>
             <optgroup label="Necessidades (50%)">
               <option value="Moradia">Moradia</option>
-              <option value="Saude">Sa&uacute;de</option>
-              <option value="Educacao">Educa&ccedil;&atilde;o</option>
-              <option value="Cartao">Cart&atilde;o de Cr&eacute;dito</option>
+              <option value="Saude">Saude</option>
+              <option value="Educacao">Educação</option>
+              <option value="Cartao">Cartao de Credito</option>
               <option value="Transporte">Transporte</option>
             </optgroup>
             <optgroup label="Desejos (30%)">
-              <option value="Lazer">Lazer / Esporte</option>
-              <option value="Assinaturas"> Assinaturas</option>
-              <option value="Vestuario"> Vestu&aacute;rio</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Esporte">Esporte</option>
+              <option value="Assinaturas">Assinaturas</option>
+              <option value="Vestuario">Vestuario</option>
               <option value="Outros">Outros Desejos</option>
             </optgroup>
             <optgroup label="Futuro (20%)">
               <option value="Investimentos">Investimentos</option>
-              <option value="Reserva">Reserva de Emerg&ecirc;ncia</option>
+              <option value="Reserva">Reserva de Emergencia</option>
             </optgroup>
           </select>
         </div>
@@ -549,16 +576,16 @@ footer p{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(-
     <div class="card" style="align-self:start">
       <div class="card-title">Sobre</div>
       <div style="font-size:.82rem;color:var(--mist);line-height:2">
-        <p>&#x1F4F1; Vers&atilde;o 1.0</p>
-        <p>&#x1F512; 100% local </p>
-        <p>Desenvolvido por Borel &#x00AE;</p>
+        <p>&#x1F4E6; Vers&atilde;o 1.0</p>
+        <p>&#x1F512; 100% local</p>
+        <p>&#x1F4CA; Desenvolvido por Borel</p>
       </div>
     </div>
   </div>
 </div>
 
 <footer>
-  <p>BL BANK &copy; 2026 &mdash; DADOS LOCAIS &middot; SM É O SETOR</p>
+  <p>BL BANK &copy; 2026 &mdash; DADOS LOCAIS &middot; SM É O SETOR </p>
   <div class="fdot"></div>
 </footer>
 </div>
@@ -593,12 +620,14 @@ function getMK(){ var s=document.getElementById('month-filter'); return s?s.valu
 
 /* ---- Category meta ---- */
 var CAT = {
+  'Alimentacao':   {e:'',c:'#3df5c1',bg:'rgba(61,245,193,.12)',  g:'N'},
   'Moradia':       {e:'',c:'#38bdf8',bg:'rgba(56,189,248,.12)',   g:'N'},
   'Saude':         {e:'',c:'#a78bfa',bg:'rgba(167,139,250,.12)',  g:'N'},
   'Educacao':      {e:'',c:'#60a5fa',bg:'rgba(96,165,250,.12)',   g:'N'},
   'Cartao':        {e:'',c:'#ff7eb3',bg:'rgba(255,126,179,.12)',  g:'N'},
   'Transporte':    {e:'',c:'#ffb830',bg:'rgba(255,184,48,.12)',   g:'N'},
   'Lazer':         {e:'',c:'#fbbf24',bg:'rgba(251,191,36,.12)',   g:'D'},
+  'Esporte':   {e:'',c:'#f97316',bg:'rgba(249,115,22,.12)',   g:'D'},
   'Assinaturas':   {e:'',c:'#e879f9',bg:'rgba(232,121,249,.12)',  g:'D'},
   'Vestuario':     {e:'',c:'#fb7185',bg:'rgba(251,113,133,.12)',  g:'D'},
   'Outros':        {e:'', c:'#f472b6',bg:'rgba(244,114,182,.12)',  g:'D'},
@@ -607,9 +636,9 @@ var CAT = {
 };
 
 var RULE_GROUPS = [
-  {key:'N',label:'Necessidades',pct:.50,color:'#3df5c1',cats:['Alimentacao','Moradia','Saude','Educacao','Cartao','Transporte'],hint:'50% — GASTOS ESSENCIAIS'},
-  {key:'D',label:'Desejos',     pct:.30,color:'#ffb830',cats:['Lazer','Assinaturas','Vestuario','Outros'],             hint:'30% — DESEJOS E LAZER'},
-  {key:'F',label:'Futuro',      pct:.20,color:'#b8ff57',cats:['Investimentos','Reserva'],                                            hint:'20% — INVESTIMENTOS E EMERG&#202;NCIA'}
+  {key:'N',label:'Necessidades',pct:.50,color:'#3df5c1',cats:['Moradia','Saude','Educacao','Cartao','Transporte'],hint:'50% — moradia, alimentacao, transporte, saude'},
+  {key:'D',label:'Desejos',     pct:.30,color:'#ffb830',cats:['Lazer','Esporte','Assinaturas','Vestuario','Outros'],             hint:'30% — lazer, esporte, assinaturas'},
+  {key:'F',label:'Futuro',      pct:.20,color:'#b8ff57',cats:['Investimentos','Reserva'],                                            hint:'20% — investimentos, reserva de emergencia'}
 ];
 
 var charts = {};
@@ -636,10 +665,12 @@ function init(){
   document.getElementById('restore-in').addEventListener('change', restoreJSON);
 
   buildMonthFilter();
+  buildFutureMonthSel();
   render();
   renderGoals();
   renderPatrimony();
   renderRelatorios();
+  renderFutureIncomes();
 }
 
 /* ================================================
@@ -662,6 +693,16 @@ function buildMonthFilter(){
 }
 
 /* ================================================
+   ON MONTH CHANGE — chamado pelo select do dashboard
+   Limpa alertas do mês anterior e re-renderiza tudo
+   com os dados do mês selecionado.
+================================================ */
+function onMonthChange(){
+  clearAlerts();
+  render();
+}
+
+/* ================================================
    SAVE INCOME
 ================================================ */
 function saveIncome(){
@@ -670,8 +711,93 @@ function saveIncome(){
   var mk=getMK(), d=getMonthData(mk);
   d.income=v; setMonthData(mk,d);
   document.getElementById('income-input').value='';
-  buildMonthFilter(); render();
-  toast('ok','Renda salva!','R$ '+fmt(v)+' — '+mkLabel(mk));
+  buildMonthFilter(); render(); renderFutureIncomes();
+  toast('ok','Renda salva!','R$ '+fmt(v)+' em '+mkLong(mk));
+}
+
+/* ================================================
+   SAVE FUTURE INCOME
+   Permite programar a renda de meses futuros.
+   Os gastos agendados naquele mês já usarão
+   esse valor nos cálculos da regra 50/30/20.
+================================================ */
+function saveFutureIncome(){
+  var mk  = document.getElementById('future-month-sel').value;
+  var v   = parseFloat(document.getElementById('future-income-input').value);
+  if(!mk) return toast('warn','M&ecirc;s','Selecione o m&ecirc;s.');
+  if(!v||v<=0) return toast('warn','Valor','Informe um valor v&aacute;lido.');
+  var d = getMonthData(mk);
+  d.income = v;
+  setMonthData(mk, d);
+  document.getElementById('future-income-input').value='';
+  buildMonthFilter();
+  render();
+  renderFutureIncomes();
+  toast('ok','Renda programada!','R$ '+fmt(v)+' em '+mkLong(mk));
+}
+
+function mkLong(mk){
+  var p=mk.split('-');
+  var l=new Date(p[0],p[1]-1,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  return l.charAt(0).toUpperCase()+l.slice(1);
+}
+
+function buildFutureMonthSel(){
+  var sel = document.getElementById('future-month-sel');
+  if(!sel) return;
+  var cur = todayMK();
+  var parts = cur.split('-');
+  var y = parseInt(parts[0]), m = parseInt(parts[1]);
+  var options = '';
+  /* Próximos 12 meses a partir do próximo mês */
+  for(var i=1; i<=12; i++){
+    var nm = m+i, ny = y;
+    if(nm>12){nm-=12;ny++;}
+    var mk = ny+'-'+String(nm).padStart(2,'0');
+    var d  = getMonthData(mk);
+    var lbl= mkLong(mk);
+    var hasIncome = d.income > 0 ? ' (R$ '+fmt(d.income)+')' : '';
+    options += '<option value="'+mk+'">'+lbl+hasIncome+'</option>';
+  }
+  sel.innerHTML = options;
+}
+
+function renderFutureIncomes(){
+  var cont = document.getElementById('future-income-list');
+  if(!cont) return;
+  var all   = getMonths();
+  var cur   = todayMK();
+  /* Mostra apenas meses futuros que têm renda programada */
+  var future = Object.keys(all)
+    .filter(function(mk){ return mk > cur && all[mk].income > 0; })
+    .sort();
+  if(!future.length){ cont.innerHTML=''; return; }
+  cont.innerHTML = '<div style="font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ghost);margin-bottom:8px">Programados</div>'
+    + future.map(function(mk){
+        var inc = all[mk].income;
+        var txs = (all[mk].txs||[]);
+        var tot = txs.reduce(function(s,t){return s+t.val},0);
+        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--rim)">'
+          +'<div>'
+          +'<div style="font-size:.84rem;font-weight:500">'+mkLong(mk)+'</div>'
+          +'<div style="font-family:var(--fm);font-size:.65rem;color:var(--mist);margin-top:1px">'
+          +(tot>0?txs.length+' gasto(s) &middot; R$ '+fmt(tot)+' lan&ccedil;ados':'Nenhum gasto agendado')
+          +'</div></div>'
+          +'<div style="text-align:right">'
+          +'<div style="font-family:var(--fd);font-size:1.1rem;color:var(--lime)">R$ '+fmt(inc)+'</div>'
+          +'<button data-mk="'+mk+'" onclick="removeFutureIncome(this.dataset.mk)" style="font-size:.65rem;color:var(--coral);background:none;border:none;cursor:pointer;font-family:var(--fm);margin-top:2px">remover</button>'
+          +'</div></div>';
+      }).join('');
+  buildFutureMonthSel();
+}
+
+function removeFutureIncome(mk){
+  if(!confirm('Remover renda programada de '+mkLong(mk)+'?')) return;
+  var d = getMonthData(mk);
+  d.income = 0;
+  setMonthData(mk,d);
+  buildMonthFilter(); render(); renderFutureIncomes();
+  toast('info','Removido','Renda de '+mkLong(mk)+' apagada.');
 }
 
 /* ================================================
@@ -1464,9 +1590,10 @@ function inferCat(desc){
   if(/netflix|spotify|amazon|prime|disney|hbo/.test(d)) return 'Assinaturas';
   if(/uber|99|cabify|taxi|onibus|metro|gasolina|estacion/.test(d)) return 'Transporte';
   if(/farmacia|hospital|clinica|medico|dentista/.test(d)) return 'Saude';
-  if(/academia|gym|crossfit/.test(d)) return 'Lazer';
+  if(/esporte|futebol|tenis|luta/.test(d)) return 'Esporte';
+  if(/ifood|festas|saidas/.test(d)) return 'Lazer';
   if(/investimento|tesouro|cdb|fundo|acoes|btc/.test(d)) return 'Investimentos';
-  if(/aluguel|condominio|iptu/.test(d)) return 'Moradia';
+  if(/aluguel|condominio|mercado|iptu|internet/.test(d)) return 'Moradia';
   return 'Outros';
 }
 
@@ -1509,7 +1636,7 @@ function switchTab(name, tabEl){
   if(name==='metas') renderGoals();
   if(name==='patrimonio') renderPatrimony();
   if(name==='relatorios') renderRelatorios();
-  if(name==='lancamentos') render();
+  if(name==='lancamentos'){ render(); buildFutureMonthSel(); renderFutureIncomes(); renderRecurringSuggestions(); }
   if(name==='dashboard') render();
 }
 
@@ -1568,6 +1695,19 @@ function toggleRec(){
   inp.value = isOn ? '0' : '1';
   row.classList.toggle('active', !isOn);
 }
+
+
+/* ══ CUSTOM CATEGORY SELECT ════════════════════ */
+
+
+
+
+/* Close dropdown when clicking outside */
+document.addEventListener('click', function(e){
+  var wrap = document.getElementById('cat-wrap');
+  if(wrap && !wrap.contains(e.target)) closeCS();
+});
+
 
 document.addEventListener('DOMContentLoaded',init);
 </script>
